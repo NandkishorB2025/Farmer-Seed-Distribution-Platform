@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from app.core.database import execute, query
+from seed_platform.core.database import execute, query
 
 
 class SeedPortalRepository:

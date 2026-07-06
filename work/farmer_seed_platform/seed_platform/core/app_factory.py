@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from flask import Flask
 
-from app.core.config import Config
-from app.core import database
-from app.modules.seed_portal.routes import seed_portal_bp
+from seed_platform.core.config import Config
+from seed_platform.core import database
+from seed_platform.modules.seed_portal.routes import seed_portal_bp
 
 
 def create_app(config_object: type[Config] = Config) -> Flask:

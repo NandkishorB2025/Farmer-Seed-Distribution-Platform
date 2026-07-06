@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date, datetime
 
-from app.modules.seed_portal.repositories import SeedPortalRepository
+from seed_platform.modules.seed_portal.repositories import SeedPortalRepository
 
 
 @dataclass(frozen=True)

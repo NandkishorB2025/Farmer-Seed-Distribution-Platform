@@ -1,4 +1,4 @@
-from app import create_app
+from seed_platform import create_app
 
 
 app = create_app()

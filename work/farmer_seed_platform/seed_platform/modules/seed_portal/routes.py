@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
-from app.modules.seed_portal.services import SeedPortalService
+from seed_platform.modules.seed_portal.services import SeedPortalService
 
 
 seed_portal_bp = Blueprint("seed_portal", __name__)
