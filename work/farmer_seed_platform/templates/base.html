@@ -8,13 +8,13 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="{{ url_for('dashboard') }}">Seed Distribution</a>
+    <a class="brand" href="{{ url_for('seed_portal.dashboard') }}">Seed Distribution</a>
     <nav>
-      <a href="{{ url_for('dashboard') }}">Dashboard</a>
-      <a href="{{ url_for('farmers') }}">Farmers</a>
-      <a href="{{ url_for('seeds') }}">Seeds</a>
-      <a href="{{ url_for('distributions') }}">Distributions</a>
-      <a href="{{ url_for('reports') }}">Reports</a>
+      <a href="{{ url_for('seed_portal.dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('seed_portal.farmers') }}">Farmers</a>
+      <a href="{{ url_for('seed_portal.seeds') }}">Seeds</a>
+      <a href="{{ url_for('seed_portal.distributions') }}">Distributions</a>
+      <a href="{{ url_for('seed_portal.reports') }}">Reports</a>
     </nav>
   </header>
 
