@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Operations Dashboard</p>
+    <h1>Farmer Seed Distribution Platform</h1>
+    <p>Track farmer registrations, seed inventory, subsidy-based distributions, and low-stock alerts from one place.</p>
+  </div>
+</section>
+
+<section class="stats-grid">
+  <article class="stat"><span>Total Farmers</span><strong>{{ stats.farmer_count }}</strong></article>
+  <article class="stat"><span>Seed Lots</span><strong>{{ stats.seed_count }}</strong></article>
+  <article class="stat"><span>Available Stock</span><strong>{{ "%.1f"|format(stats.stock_kg) }} kg</strong></article>
+  <article class="stat"><span>Distributed</span><strong>{{ "%.1f"|format(stats.distributed_kg) }} kg</strong></article>
+</section>
+
+<section class="split">
+  <div>
+    <div class="section-head">
+      <h2>Recent distributions</h2>
+      <a class="button small" href="{{ url_for('distributions') }}">Record distribution</a>
+    </div>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Farmer</th><th>Seed</th><th>Qty</th><th>Cost</th></tr>
+      </thead>
+      <tbody>
+        {% for item in recent_distributions %}
+          <tr>
+            <td>{{ item.distributed_on }}</td>
+            <td>{{ item.farmer_name }}<small>{{ item.village }}</small></td>
+            <td>{{ item.seed_name }}</td>
+            <td>{{ "%.1f"|format(item.quantity_kg) }} kg</td>
+            <td>Rs. {{ "%.2f"|format(item.total_cost) }}</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="5" class="empty">No distributions recorded yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <div class="section-head">
+      <h2>Low stock</h2>
+      <span class="badge">{{ stats.low_stock_count }} alert{% if stats.low_stock_count != 1 %}s{% endif %}</span>
+    </div>
+    <div class="list">
+      {% for seed in low_stock %}
+        <article class="list-item">
+          <strong>{{ seed.name }}</strong>
+          <span>{{ seed.crop_type }} - {{ seed.variety }}</span>
+          <em>{{ "%.1f"|format(seed.stock_kg) }} kg left</em>
+        </article>
+      {% else %}
+        <p class="empty">All seed lots are above reorder level.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

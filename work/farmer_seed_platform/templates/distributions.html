@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Transactions</p>
+    <h1>Seed distributions</h1>
+  </div>
+</div>
+
+<section class="form-panel">
+  <h2>Record distribution</h2>
+  <form method="post" class="grid-form">
+    <label>Farmer
+      <select name="farmer_id" required>
+        {% for farmer in farmers %}
+          <option value="{{ farmer.id }}">{{ farmer.name }} - {{ farmer.village }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Seed
+      <select name="seed_id" required>
+        {% for seed in seeds %}
+          <option value="{{ seed.id }}">{{ seed.name }} ({{ "%.1f"|format(seed.stock_kg) }} kg)</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Quantity kg<input name="quantity_kg" type="number" min="0.1" step="0.1" required></label>
+    <label>Subsidy %<input name="subsidy_percent" type="number" min="0" max="100" step="1" value="50" required></label>
+    <label class="wide">Notes<input name="notes" placeholder="Optional scheme, batch, or receipt note"></label>
+    <button type="submit">Distribute</button>
+  </form>
+</section>
+
+<section>
+  <h2>Distribution history</h2>
+  <table>
+    <thead><tr><th>Date</th><th>Farmer</th><th>Seed</th><th>Qty</th><th>Subsidy</th><th>Cost</th><th>Notes</th></tr></thead>
+    <tbody>
+      {% for row in distributions %}
+        <tr>
+          <td>{{ row.distributed_on }}</td>
+          <td>{{ row.farmer_name }}<small>{{ row.village }}</small></td>
+          <td>{{ row.seed_name }}<small>{{ row.crop_type }}</small></td>
+          <td>{{ "%.1f"|format(row.quantity_kg) }} kg</td>
+          <td>{{ "%.0f"|format(row.subsidy_percent) }}%</td>
+          <td>Rs. {{ "%.2f"|format(row.total_cost) }}</td>
+          <td>{{ row.notes or "-" }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="7" class="empty">No distribution records yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

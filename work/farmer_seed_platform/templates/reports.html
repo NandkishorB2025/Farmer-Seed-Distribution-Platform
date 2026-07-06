@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Insights</p>
+    <h1>Reports</h1>
+  </div>
+</div>
+
+<section class="split">
+  <div>
+    <h2>Distribution by crop</h2>
+    <table>
+      <thead><tr><th>Crop</th><th>Quantity</th><th>Collected</th></tr></thead>
+      <tbody>
+        {% for row in by_crop %}
+          <tr>
+            <td>{{ row.crop_type }}</td>
+            <td>{{ "%.1f"|format(row.quantity_kg) }} kg</td>
+            <td>Rs. {{ "%.2f"|format(row.revenue) }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h2>Distribution by village</h2>
+    <table>
+      <thead><tr><th>Village</th><th>Farmers</th><th>Quantity</th></tr></thead>
+      <tbody>
+        {% for row in by_village %}
+          <tr>
+            <td>{{ row.village }}</td>
+            <td>{{ row.farmers_served }}</td>
+            <td>{{ "%.1f"|format(row.quantity_kg) }} kg</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Inventory</p>
+    <h1>Seed stock</h1>
+  </div>
+</div>
+
+<section class="form-panel">
+  <h2>Add seed lot</h2>
+  <form method="post" class="grid-form">
+    <label>Name<input name="name" required></label>
+    <label>Crop type<input name="crop_type" required></label>
+    <label>Variety<input name="variety" required></label>
+    <label>Season
+      <select name="season" required>
+        <option>Kharif</option>
+        <option>Rabi</option>
+        <option>Zaid</option>
+        <option>All season</option>
+      </select>
+    </label>
+    <label>Price per kg<input name="price_per_kg" type="number" min="0" step="0.01" required></label>
+    <label>Stock kg<input name="stock_kg" type="number" min="0" step="0.1" required></label>
+    <label>Reorder level kg<input name="reorder_level_kg" type="number" min="0" step="0.1" required></label>
+    <button type="submit">Add stock</button>
+  </form>
+</section>
+
+<section>
+  <h2>Inventory</h2>
+  <table>
+    <thead><tr><th>Seed</th><th>Crop</th><th>Variety</th><th>Season</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for seed in seeds %}
+        <tr>
+          <td>{{ seed.name }}</td>
+          <td>{{ seed.crop_type }}</td>
+          <td>{{ seed.variety }}</td>
+          <td>{{ seed.season }}</td>
+          <td>Rs. {{ "%.2f"|format(seed.price_per_kg) }}</td>
+          <td>{{ "%.1f"|format(seed.stock_kg) }} kg</td>
+          <td>
+            {% if seed.stock_kg <= seed.reorder_level_kg %}
+              <span class="badge danger">Reorder</span>
+            {% else %}
+              <span class="badge good">Available</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">Registry</p>
+    <h1>Farmers</h1>
+  </div>
+</div>
+
+<section class="form-panel">
+  <h2>Register farmer</h2>
+  <form method="post" class="grid-form">
+    <label>Name<input name="name" required></label>
+    <label>Village<input name="village" required></label>
+    <label>Phone<input name="phone" required minlength="10"></label>
+    <label>Land acres<input name="land_acres" type="number" min="0.1" step="0.1" required></label>
+    <label>Crop preference<input name="crop_preference" required></label>
+    <button type="submit">Register</button>
+  </form>
+</section>
+
+<section>
+  <h2>Registered farmers</h2>
+  <table>
+    <thead><tr><th>Name</th><th>Village</th><th>Phone</th><th>Land</th><th>Crop</th><th>Registered</th></tr></thead>
+    <tbody>
+      {% for farmer in farmers %}
+        <tr>
+          <td>{{ farmer.name }}</td>
+          <td>{{ farmer.village }}</td>
+          <td>{{ farmer.phone }}</td>
+          <td>{{ "%.1f"|format(farmer.land_acres) }} acres</td>
+          <td>{{ farmer.crop_preference }}</td>
+          <td>{{ farmer.registered_on }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
